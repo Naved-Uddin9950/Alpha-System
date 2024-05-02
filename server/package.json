@@ -1,0 +1,31 @@
+{
+  "name": "alpha-system",
+  "version": "1.0.0",
+  "description": "An isekai cheat skill system type system in real life to make you an Alpha (strongest) male in the world",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Aplha",
+    "system",
+    "isekai",
+    "system",
+    "system",
+    "skills",
+    "strongest",
+    "yuusha",
+    "another",
+    "world",
+    "real",
+    "life"
+  ],
+  "author": "Naved Uddin",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "mongoose": "^8.3.3"
+  }
+}
