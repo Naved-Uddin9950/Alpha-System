@@ -23,20 +23,24 @@ const userSchema = new mongoose.Schema({
         default: 0
     },
     stats: {
-        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Stats' }]
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Stats' }],
+        default: []
     },
     skills: {
-        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Skills' }]
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Skills' }],
+        default: []
     },
-    job: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Jobs'
+    jobs: {
+        type: [{type: mongoose.Schema.Types.ObjectId, ref: 'Jobs'}],
+        default: []
     },
     achievements: {
-        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Achievements' }]
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Achievements' }],
+        default: []
     },
     dailyTasks: {
-        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'DailyTasks' }]
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'DailyTasks' }],
+        default: []
     }
 }, { timestamps: true });
 
