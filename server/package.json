@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "An isekai cheat skill system type system in real life to make you an Alpha (strongest) male in the world",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
