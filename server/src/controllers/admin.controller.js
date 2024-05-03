@@ -18,7 +18,7 @@ const adminController = {
                 password
             });
 
-            await newUser.save();
+            await newAdmin.save();
 
             // Send a success response
             res.status(201).json({ message: 'User created successfully', admin: newAdmin });
