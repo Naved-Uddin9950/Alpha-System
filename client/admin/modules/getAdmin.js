@@ -1,3 +1,5 @@
+import { setCookie } from '../utils/setCookie.js';
+
 export const getAdmin = async (username, password) => {
     const errorScreen = document.querySelector('.error');
     const errorMessage = document.querySelector('.errorMessage');
@@ -20,6 +22,9 @@ export const getAdmin = async (username, password) => {
     // Check if the request was successful (status code 200-299)
     if (response.ok) {
         // const json = await response.json();
+        setCookie('username', username, 10);
+        setCookie('password', password, 10);
+        
         window.location.href = './pages/dashboard.html';
     } else {
         // If there was an error, log the error message
