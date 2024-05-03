@@ -13,7 +13,7 @@ const adminController = {
             }
 
             // If username is unique, proceed with creating the new user
-            const newAdmin = new User({
+            const newAdmin = new Admin({
                 username,
                 password
             });
