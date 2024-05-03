@@ -1,6 +1,7 @@
 import { Admin } from '../models/Admin.model.js';
 
 const adminController = {
+    // Create new admin
     async createUser(req, res) {
         try {
             const { username, password } = req.body;
@@ -26,6 +27,28 @@ const adminController = {
             // If there's an error, send an error response
             console.error('Error creating user:', error);
             res.status(500).json({ error: 'An error occurred while creating the admin' });
+        }
+    },
+
+    // Get admin info
+    async getAdminInfo(req, res) {
+        try {
+            const { username, password } = req.body;
+
+            // Query the database for admin info based on username and password
+            const adminInfo = await Admin.findOne({ username, password });
+
+            if (adminInfo) {
+                // If admin info is found, return it as JSON response
+                res.status(200).json(adminInfo);
+            } else {
+                // If admin info is not found, return a 404 Not Found response
+                res.status(404).json({ error: 'Admin not found' });
+            }
+        } catch (error) {
+            // If there's an error, send an error response
+            console.error('Error fetching admin info:', error);
+            res.status(500).json({ error: 'An error occurred while fetching admin info' });
         }
     }
 };
