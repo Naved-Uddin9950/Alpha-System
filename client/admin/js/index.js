@@ -12,5 +12,18 @@ signUpBtn.addEventListener("click", () => {
   container.classList.add("right-panel-active");
 });
 
-fistForm.addEventListener("submit", (e) => e.preventDefault());
 secondForm.addEventListener("submit", (e) => e.preventDefault());
+
+fistForm.addEventListener("submit", (e) => e.preventDefault());
+
+
+
+const createAdmin = async () => {
+  const URI = 'https://alpha-system.onrender.com/api/admin';
+  const res = (await fetch(URI)).text;
+  // const data = res.text();
+  const json = res.json();
+  console.log(res);
+}
+
+createAdmin();
