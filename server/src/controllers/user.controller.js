@@ -1,6 +1,7 @@
 import { User } from '../models/User.model.js';
 
 const userController = {
+    // Create a new user
     async createUser(req, res) {
         try {
             const { fullname, username, password } = req.body;
@@ -27,6 +28,17 @@ const userController = {
             // If there's an error, send an error response
             console.error('Error creating user:', error);
             res.status(500).json({ error: 'An error occurred while creating the user' });
+        }
+    },
+
+    // Get the list of all the users
+    async getAllUsers(req, res) {
+        try {
+            const users = await User.find();
+            res.status(200).json(users);
+        } catch (error) {
+            console.error('Error fetching users:', error);
+            res.status(500).json({ error: 'An error occurred while fetching users' });
         }
     }
 };
