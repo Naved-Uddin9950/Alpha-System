@@ -1,5 +1,3 @@
-// UserController.js
-
 import { User } from '../models/User.model.js';
 
 const userController = {

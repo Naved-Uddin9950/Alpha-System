@@ -20,10 +20,27 @@ fistForm.addEventListener("submit", (e) => e.preventDefault());
 
 const createAdmin = async () => {
   const URI = 'https://alpha-system.onrender.com/api/admin';
-  const res = (await fetch(URI)).text;
-  // const data = res.text();
-  const json = res.json();
-  console.log(res);
+  const response = await fetch(URI, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      // Provide the data for creating the admin account here
+      // For example:
+      username: 'admin',
+      password: 'adminpassword'
+    })
+  });
+
+  // Check if the request was successful (status code 200-299)
+  if (response.ok) {
+    const json = await response.json();
+    console.log(json);
+  } else {
+    // If there was an error, log the error message
+    console.error('Failed to create admin account:', await response.text());
+  }
 }
 
 createAdmin();
