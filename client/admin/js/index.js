@@ -1,3 +1,7 @@
+import { getCookie } from '../utils/getCookie.js';
+import { createAdmin } from '../modules/createAdmin.js';
+import { getAdmin } from '../modules/getAdmin.js';
+
 const signInBtn = document.getElementById("signIn");
 const signUpBtn = document.getElementById("signUp");
 const fistForm = document.getElementById("form1");
@@ -5,35 +9,15 @@ const secondForm = document.getElementById("form2");
 const container = document.querySelector(".container");
 const close = document.querySelector(".close");
 const errorScreen = document.querySelector('.error');
-const errorMessage = document.querySelector('.errorMessage');
 
-const createAdmin = async () => {
-  const URI = 'https://alpha-system.onrender.com/api/admin';
-  const response = await fetch(URI, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      // Provide the data for creating the admin account here
-      // For example:
-      username: 'admin',
-      password: 'adminpassword'
-    })
-  });
+// Check if user is logged in
+const username = getCookie('username') || null;
+const password = getCookie('password') || null;
 
-  // Check if the request was successful (status code 200-299)
-  if (response.ok) {
-    const json = await response.json();
-    console.log(json);
-  } else {
-    // If there was an error, log the error message
-    const error = await response.text();
-    errorMessage.textContent = error;
-    errorScreen.style.display = 'flex';
-    console.error('Failed to create admin account:', error);
-  }
+if(username != null) {
+  getAdmin(username, password);
 }
+
 
 close.addEventListener('click', () => {
   errorScreen.style.display = 'none';
@@ -47,10 +31,17 @@ signUpBtn.addEventListener("click", () => {
   container.classList.add("right-panel-active");
 });
 
-secondForm.addEventListener("submit", (e) => e.preventDefault());
+secondForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  let username = secondForm.elements["username"].value;
+  let password = secondForm.elements["password"].value;
+  getAdmin(username, password);
+});
 
 fistForm.addEventListener("submit", (e) => {
-  createAdmin();
-  e.preventDefault()
+  e.preventDefault();
+  let username = fistForm.elements["username"].value;
+  let password = fistForm.elements["password"].value;
+  createAdmin(username, password);
 });
 
