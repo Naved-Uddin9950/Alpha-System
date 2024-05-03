@@ -3,20 +3,9 @@ const signUpBtn = document.getElementById("signUp");
 const fistForm = document.getElementById("form1");
 const secondForm = document.getElementById("form2");
 const container = document.querySelector(".container");
-
-signInBtn.addEventListener("click", () => {
-  container.classList.remove("right-panel-active");
-});
-
-signUpBtn.addEventListener("click", () => {
-  container.classList.add("right-panel-active");
-});
-
-secondForm.addEventListener("submit", (e) => e.preventDefault());
-
-fistForm.addEventListener("submit", (e) => e.preventDefault());
-
-
+const close = document.querySelector(".close");
+const errorScreen = document.querySelector('.error');
+const errorMessage = document.querySelector('.errorMessage');
 
 const createAdmin = async () => {
   const URI = 'https://alpha-system.onrender.com/api/admin';
@@ -39,8 +28,29 @@ const createAdmin = async () => {
     console.log(json);
   } else {
     // If there was an error, log the error message
-    console.error('Failed to create admin account:', await response.text());
+    const error = await response.text();
+    errorMessage.textContent = error;
+    errorScreen.style.display = 'flex';
+    console.error('Failed to create admin account:', error);
   }
 }
 
-createAdmin();
+close.addEventListener('click', () => {
+  errorScreen.style.display = 'none';
+});
+
+signInBtn.addEventListener("click", () => {
+  container.classList.remove("right-panel-active");
+});
+
+signUpBtn.addEventListener("click", () => {
+  container.classList.add("right-panel-active");
+});
+
+secondForm.addEventListener("submit", (e) => e.preventDefault());
+
+fistForm.addEventListener("submit", (e) => {
+  createAdmin();
+  e.preventDefault()
+});
+
