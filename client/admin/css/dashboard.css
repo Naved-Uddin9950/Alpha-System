@@ -59,51 +59,6 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/*插入icon图标*/
-.slidebar li:nth-child(1):before {
-    content: "\63";
-}
-
-.slidebar li:nth-child(2):before {
-    content: "\64";
-}
-
-.slidebar li:nth-child(3):before {
-    content: "\62";
-}
-
-.slidebar li:nth-child(4):before {
-    content: "\65";
-}
-
-.slidebar li:nth-child(5):before {
-    content: "\74";
-}
-
-.slidebar li:nth-child(6):before {
-    content: "\66";
-}
-
-.slidebar li:nth-child(7):before {
-    content: "\67";
-}
-
-.slidebar li:nth-child(8):before {
-    content: "\68";
-}
-
-.slidebar li:nth-child(9):before {
-    content: "\69";
-}
-
-.slidebar li:nth-child(10):before {
-    content: "\6a";
-}
-
-.slidebar li:nth-child(11):before {
-    content: "\75";
-}
-
 .slidebar ul a {
     color: rgb(140, 140, 140);
     text-decoration: none;
@@ -129,42 +84,6 @@ body {
     background-color: rgb(255, 255, 255);
     position: relative;
     font-family: helvetica, verdana, sans-serif;
-}
-
-.main .topbar {
-    border-bottom: 1px solid rgb(235, 235, 235);
-    margin: 0;
-    padding: 0;
-}
-
-/*topbar顶部按钮栏*/
-.topbar li {
-    float: right;
-    list-style: none;
-}
-
-.topbar li:first-child {
-    float: left;
-}
-
-.topbar a {
-    font-family: 'icomoon';
-    display: block;
-    line-height: 50px;
-    width: 50px;
-    text-align: center;
-    text-decoration: none;
-    color: rgb(102, 102, 102);
-    border-left: 1px solid rgb(235, 235, 235);
-}
-
-.topbar a:hover {
-    background-color: rgb(247, 247, 247);
-}
-
-.topbar li:first-child a {
-    border: none;
-    border-right: 1px solid rgb(235, 235, 235);
 }
 
 /*mainContent*/
@@ -195,60 +114,6 @@ body {
     font-size: 20px;
 }
 
-.mainContent h2:before {
-    font-family: 'icomoon';
-    content: attr(data-icon);
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-    margin-right: 10px;
-    -webkit-font-smoothing: antialiased;
-}
-
-.mainContent div:nth-child(1) h2:before {
-    content: "\63";
-}
-
-.mainContent div:nth-child(2) h2:before {
-    content: "\64";
-}
-
-.mainContent div:nth-child(3) h2:before {
-    content: "\62";
-}
-
-.mainContent div:nth-child(4) h2:before {
-    content: "\65";
-}
-
-.mainContent div:nth-child(5) h2:before {
-    content: "\74";
-}
-
-.mainContent div:nth-child(6) h2:before {
-    content: "\66";
-}
-
-.mainContent div:nth-child(7) h2:before {
-    content: "\67";
-}
-
-.mainContent div:nth-child(8) h2:before {
-    content: "\68";
-}
-
-.mainContent div:nth-child(9) h2:before {
-    content: "\69";
-}
-
-.mainContent div:nth-child(10) h2:before {
-    content: "\6a";
-}
-
-.mainContent div:nth-child(11) h2:before {
-    content: "\75";
-}
 
 #dashboard>div {
     border: 1px solid rgb(235, 235, 235);
@@ -485,13 +350,28 @@ body {
     border-left: 1px solid rgb(235, 235, 235);
 }
 
-@font-face {
-    font-family: 'icomoon';
-    src: url('fonts/icomoon.eot');
-    src: url('fonts/icomoon.eot?#iefix') format('embedded-opentype'),
-        url('fonts/icomoon.woff') format('woff'),
-        url('fonts/icomoon.ttf') format('truetype'),
-        url('fonts/icomoon.svg#icomoon') format('svg');
-    font-weight: normal;
-    font-style: normal;
+
+.userList {
+    margin: auto 20px;
+}
+
+table {
+    width: 200%;
+    border-collapse: collapse;
+}
+
+table,
+thead,
+td {
+    border: 1px solid black;
+}
+
+thead,
+td {
+    padding: 10px;
+    text-align: left;
+}
+
+thead {
+    font-weight: bold;
 }
