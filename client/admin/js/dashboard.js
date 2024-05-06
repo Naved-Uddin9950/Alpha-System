@@ -1,10 +1,11 @@
 import { deleteCookie } from '../utils/deleteCookie.js';
 import { isLogin } from '../utils/isLogin.js';
+import { updateUser } from '../modules/updateUser.js';
 
 const logoutBtn = document.querySelector('.logout');
 
 // Checking if user is logged in
-if(!isLogin()) {
+if (!isLogin()) {
     window.location.href = '../index.html';
 }
 
@@ -26,24 +27,32 @@ const getUsers = async () => {
             throw new Error('Failed to fetch users');
         }
         const users = await response.json();
-        
-        for(let i=0; i<users.length; i++) {
+
+        for (let i = 0; i < users.length; i++) {
             let name = users[i].fullname ?? 'Unknown';
             let user = users[i].username ?? 'Unknown';
             let level = users[i].level ?? 1;
             let status = users[i].status ?? 'Unknown';
             let edit = `<i class="fa-solid fa-pen-to-square"></i>`;
             let remove = `<i class="fa-solid fa-ban"></i>`;
-            
+
             table.innerHTML += `
                 <tr>
                     <td>${name}</td>
                     <td>${user}</td>
                     <td>${level}</td>
                     <td>${status}</td>
-                    <td>${edit} ${remove}</td>
+                    <td>
+                        <button id='edit_id${i}'>${edit}</button> 
+                        <button> ${remove} </button>
+                    </td>
                 </tr>
             `;
+
+            let editBtn = document.getElementById(`edit_id${i}`);
+            editBtn.addEventListener('click', () => {
+                updateUser(`${name}`, `${user}`, `${level}`, `${status}`);
+            });
         }
     } catch (error) {
         console.error('Error fetching users:', error);
