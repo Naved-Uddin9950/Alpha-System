@@ -2,6 +2,7 @@ import { deleteCookie } from '../utils/deleteCookie.js';
 import { isLogin } from '../utils/isLogin.js';
 import { updateUser } from '../modules/updateUser.js';
 import { errorHandler } from '../utils/errorHandler.js';
+import { confirm } from '../utils/confirm.js';
 
 const logoutBtn = document.querySelector('.logout');
 
@@ -93,8 +94,16 @@ const getUsers = async () => {
             // Submit / Edit
             let editBtn = document.getElementById(`edit_id${i}`);
             editBtn.addEventListener('click', () => {
+                let message = `Do you want to save changes for user ${user} ?`
+                const yes = document.querySelector('.yesOption');
 
-                updateUser(name, user, level, status);
+                confirm(message);
+                yes.addEventListener('click', () => {
+                    updateUser(name, user, level, status);
+                    const box = document.querySelector('.confirmBox');
+                    box.style.display = 'none';
+                });
+
             });
             // Submit / Edit ends here
         }
