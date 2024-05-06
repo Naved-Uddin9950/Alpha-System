@@ -41,6 +41,11 @@ const userSchema = new mongoose.Schema({
     dailyTasks: {
         type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'DailyTasks' }],
         default: []
+    },
+    status : {
+        type: String,
+        enum: ['Active', 'Inactive'],
+        default: 'Inactive'
     }
 }, { timestamps: true });
 
