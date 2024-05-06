@@ -36,22 +36,42 @@ const getUsers = async () => {
             let edit = `<i class="fa-solid fa-pen-to-square"></i>`;
             let remove = `<i class="fa-solid fa-ban"></i>`;
 
-            table.innerHTML += `
+            const row = document.createElement('tr');
+
+            row.innerHTML += `
                 <tr>
                     <td>${name}</td>
                     <td>${user}</td>
-                    <td>${level}</td>
-                    <td>${status}</td>
+                    <td>
+                        <button id="decrease">-</button>
+                        <input type="number" id="value" value="0">
+                        <button id="increase">+</button>
+                    </td>
+                    <td>
+                    <select class='statusBox'>
+                    <option value='Active'>Active</option>
+                    <option value='Inactive'>Inactive</option>
+                    </select>
+                    </td>
                     <td>
                         <button id='edit_id${i}'>${edit}</button> 
                         <button> ${remove} </button>
                     </td>
                 </tr>
             `;
+            
+            table.appendChild(row);
+
+            let statusBox = row.querySelector('.statusBox');  
+            statusBox.value = status;
+
+            statusBox.addEventListener('change', () => {
+                status = statusBox.value;            
+            });
 
             let editBtn = document.getElementById(`edit_id${i}`);
             editBtn.addEventListener('click', () => {
-                updateUser(`${name}`, `${user}`, `${level}`, `${status}`);
+                updateUser(name, user, level, status);
             });
         }
     } catch (error) {
