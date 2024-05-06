@@ -40,6 +40,31 @@ const userController = {
             console.error('Error fetching users:', error);
             res.status(500).json({ error: 'An error occurred while fetching users' });
         }
+    },
+
+
+    // Update user data
+    async updateUser(req, res) {
+        try {
+            const { username } = req.params; // Assuming the username is used as the unique identifier
+            const { fullname, level, status } = req.body;
+
+            // Find the user by username and update the data
+            const updatedUser = await User.findOneAndUpdate({ username }, {
+                fullname,
+                level,
+                status
+            }, { new: true });
+
+            if (!updatedUser) {
+                return res.status(404).json({ error: 'User not found' });
+            }
+
+            res.status(200).json({ message: 'User data updated successfully', user: updatedUser });
+        } catch (error) {
+            console.error('Error updating user data:', error);
+            res.status(500).json({ error: 'An error occurred while updating user data' });
+        }
     }
 };
 
