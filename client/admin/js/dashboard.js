@@ -31,7 +31,7 @@ const getUsers = async () => {
             let name = users[i].fullname ?? 'Unknown';
             let user = users[i].username ?? 'Unknown';
             let level = users[i].level ?? 1;
-            let status = users[i].status ?? 'Inactive';
+            let status = users[i].status ?? 'Unknown';
             let edit = `<i class="fa-solid fa-pen-to-square"></i>`;
             let remove = `<i class="fa-solid fa-ban"></i>`;
             
