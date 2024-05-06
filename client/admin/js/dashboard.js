@@ -1,6 +1,7 @@
 import { deleteCookie } from '../utils/deleteCookie.js';
 import { isLogin } from '../utils/isLogin.js';
 import { updateUser } from '../modules/updateUser.js';
+import { errorHandler } from '../utils/errorHandler.js';
 
 const logoutBtn = document.querySelector('.logout');
 
@@ -42,10 +43,10 @@ const getUsers = async () => {
                 <tr>
                     <td>${name}</td>
                     <td>${user}</td>
-                    <td>
-                        <button id="decrease">-</button>
-                        <input type="number" id="value" value="0">
-                        <button id="increase">+</button>
+                    <td class="input-group">
+                        <button class="decrease">-</button>
+                        <input type="number" class="value" value="${level}">
+                        <button class="increase">+</button>
                     </td>
                     <td>
                     <select class='statusBox'>
@@ -59,20 +60,43 @@ const getUsers = async () => {
                     </td>
                 </tr>
             `;
-            
+
             table.appendChild(row);
 
-            let statusBox = row.querySelector('.statusBox');  
+            // Level Update
+            let decreaseButton = row.querySelector('.decrease');
+            let increaseButton = row.querySelector('.increase');
+            let valueInput = row.querySelector('.value');
+
+            decreaseButton.addEventListener('click', function () {
+                valueInput.value = parseInt(valueInput.value) - 1;
+                level = valueInput.value;
+            });
+
+            increaseButton.addEventListener('click', function () {
+                valueInput.value = parseInt(valueInput.value) + 1;
+                level = valueInput.value;
+            });
+            // Level Update ends here
+
+
+            // Status Update
+            let statusBox = row.querySelector('.statusBox');
             statusBox.value = status;
 
             statusBox.addEventListener('change', () => {
-                status = statusBox.value;            
+                status = statusBox.value;
             });
+            // Status Update ends here
 
+
+            // Submit / Edit
             let editBtn = document.getElementById(`edit_id${i}`);
             editBtn.addEventListener('click', () => {
+
                 updateUser(name, user, level, status);
             });
+            // Submit / Edit ends here
         }
     } catch (error) {
         console.error('Error fetching users:', error);
