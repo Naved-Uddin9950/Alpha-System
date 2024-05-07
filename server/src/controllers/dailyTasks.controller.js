@@ -42,6 +42,40 @@ const dailyTasksController = {
             console.error('Error creating daily tasks:', error);
             res.status(500).json({ error: 'An error occurred while creating daily tasks' });
         }
+    },
+
+    // Get the list of all the daily tasks
+    async getAllTasks(req, res) {
+        try {
+            const tasks = await DailyTasks.find();
+            res.status(200).json(tasks);
+        } catch (error) {
+            res.status(500).json({ error: 'An error occurred while fetching daily tasks' });
+        }
+    },
+
+
+    // Update daily tasks data
+    async updateTasks(req, res) {
+        try {
+            const { task, reward, penalty, timeLimit } = req.body;
+
+            // Find the user by username and update the data
+            const updatedTask = await User.findOneAndUpdate({ task }, {
+                task,
+                reward,
+                penalty,
+                timeLimit
+            }, { new: true });
+
+            if (!updatedTask) {
+                return res.status(404).json({ error: 'Daily Task not found' });
+            }
+
+            res.status(200).json({ message: 'Daily Task updated successfully', task: updatedTask });
+        } catch (error) {
+            res.status(500).json({ error: 'An error occurred while updating daily task' });
+        }
     }
 };
 

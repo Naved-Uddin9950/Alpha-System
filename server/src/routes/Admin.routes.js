@@ -10,5 +10,7 @@ router.post('/getadmin', adminController.getAdminInfo);
 
 // daily tasks routes
 router.post('/daily-tasks', dailyTasksController.createDailyTasks);
+router.get('/daily-tasks', dailyTasksController.getAllTasks);
+router.put('/daily-tasks', dailyTasksController.updateTasks);
 
 export default router;
