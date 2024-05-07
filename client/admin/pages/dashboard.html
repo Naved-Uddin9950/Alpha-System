@@ -85,7 +85,11 @@
 
                 <!-- Daily Tasks Tab -->
                 <div id="daily">
-                    <h2 class="header">Daily Tasks</h2>
+                    <h2 class="header">Daily Tasks
+                        <button type="button" id="createTaskBtn">Create</button>
+                    </h2>
+
+                    <!-- Daily taks table -->
                     <div class="taskList">
                         <table id="tasks-table">
                             <thead>
@@ -97,11 +101,37 @@
                                     <td>Edit/Delete</td>
                                 </tr>
                             </thead>
-    
+
                             <tbody id="tasks-tbody">
                             </tbody>
                         </table>
                     </div>
+                    <!-- Daily tasks table ends here -->
+
+                    <!-- Daily Tasks creation form -->
+                    <form method="post" class="creation-form">
+                        <label for="task">Task</label>
+                        <input type="text" name="task" id="task">
+
+                        <label for="reward">Reward</label>
+                        <input type="text" name="reward" id="reward" class="reward">
+                        <button type="button" id="addreward">Add</button>
+
+                        <label for="penalty">Penalty</label>
+                        <input type="text" name="penalty" id="penalty" class="penalty">
+                        <button type="button" id="addpenalty">Add</button>
+
+                        <label for="timeLimit">Time Limit</label>
+                        <input type="datetime-local" name="timelimit" id="timeLimit">
+
+                        <button type="reset">Reset</button>
+                        <button type="submit">Submit</button>
+
+                        <div class="close">&#10006</div>
+
+                    </form>
+                    <!-- Daily Tasks creation form ends here -->
+
                 </div>
                 <!-- Daily Tasks Tab ends here -->
 

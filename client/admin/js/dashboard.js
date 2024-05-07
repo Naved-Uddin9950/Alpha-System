@@ -3,6 +3,7 @@ import { isLogin } from '../utils/isLogin.js';
 import { errorHandler } from '../utils/errorHandler.js';
 import { getUsers } from '../modules/getUsers.js';
 import { getTasks } from '../modules/getTasks.js';
+import { createTask } from '../modules/createTask.js';
 
 const logoutBtn = document.querySelector('.logout');
 
@@ -23,4 +24,5 @@ logoutBtn.addEventListener('click', (e) => {
 // Modules calls
 getUsers();
 getTasks();
+createTask();
 
