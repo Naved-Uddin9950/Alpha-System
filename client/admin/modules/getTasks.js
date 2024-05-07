@@ -3,19 +3,18 @@ import { confirm } from '../utils/confirm.js';
 
 export const getTasks = async () => {
     try {
-        const table = document.querySelector('#tasks-table');
+        const table = document.getElementById('tasks-tbody');
         const response = await fetch('http://localhost:3000/api/daily-tasks');
         if (!response.ok) {
             throw new Error('Failed to fetch daily tasks');
         }
         const tasks = await response.json();
 
-        console.log(tasks);
         for (let i = 0; i < tasks.length; i++) {
-            let name = users[i].fullname ?? 'Unknown';
-            let user = users[i].username ?? 'Unknown';
-            let level = users[i].level ?? 1;
-            let status = users[i].status ?? 'Unknown';
+            let task = tasks[i].task ?? 'Unknown';
+            let reward = tasks[i].reward ?? 'Unknown';
+            let penalty = tasks[i].penalty ?? 'Unknown';
+            let timeLimit = tasks[i].timeLimit ?? 'Unknown';
             let edit = `<i class="fa-solid fa-pen-to-square"></i>`;
             let remove = `<i class="fa-solid fa-ban"></i>`;
 
@@ -23,19 +22,10 @@ export const getTasks = async () => {
 
             row.innerHTML += `
                 <tr>
-                    <td>${name}</td>
-                    <td>${user}</td>
-                    <td class="input-group">
-                        <button class="decrease">-</button>
-                        <input type="number" class="value" value="${level}">
-                        <button class="increase">+</button>
-                    </td>
-                    <td>
-                    <select class='statusBox'>
-                    <option value='Active'>Active</option>
-                    <option value='Inactive'>Inactive</option>
-                    </select>
-                    </td>
+                    <td>${task}</td>
+                    <td>${reward}</td>
+                    <td>${penalty}</td>
+                    <td>${timeLimit}</td>
                     <td>
                         <button id='edit_id${i}'>${edit}</button> 
                         <button> ${remove} </button>
@@ -45,47 +35,20 @@ export const getTasks = async () => {
 
             table.appendChild(row);
 
-            // Level Update
-            let decreaseButton = row.querySelector('.decrease');
-            let increaseButton = row.querySelector('.increase');
-            let valueInput = row.querySelector('.value');
-
-            decreaseButton.addEventListener('click', function () {
-                valueInput.value = parseInt(valueInput.value) - 1;
-                level = valueInput.value;
-            });
-
-            increaseButton.addEventListener('click', function () {
-                valueInput.value = parseInt(valueInput.value) + 1;
-                level = valueInput.value;
-            });
-            // Level Update ends here
-
-
-            // Status Update
-            let statusBox = row.querySelector('.statusBox');
-            statusBox.value = status;
-
-            statusBox.addEventListener('change', () => {
-                status = statusBox.value;
-            });
-            // Status Update ends here
-
-
             // Submit / Edit
-            let editBtn = document.getElementById(`edit_id${i}`);
-            editBtn.addEventListener('click', () => {
-                let message = `Do you want to save changes for user ${user} ?`
-                const yes = document.querySelector('.yesOption');
+            // let editBtn = document.getElementById(`edit_id${i}`);
+            // editBtn.addEventListener('click', () => {
+            //     let message = `Do you want to save changes for user ${user} ?`
+            //     const yes = document.querySelector('.yesOption');
 
-                confirm(message);
-                yes.addEventListener('click', () => {
-                    updateUser(name, user, level, status);
-                    const box = document.querySelector('.confirmBox');
-                    box.style.display = 'none';
-                });
+            //     confirm(message);
+            //     yes.addEventListener('click', () => {
+            //         updateUser(name, user, level, status);
+            //         const box = document.querySelector('.confirmBox');
+            //         box.style.display = 'none';
+            //     });
 
-            });
+            // });
             // Submit / Edit ends here
         }
     } catch (error) {

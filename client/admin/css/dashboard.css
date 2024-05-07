@@ -351,20 +351,33 @@ body {
 }
 
 
-.userList, .taskList {
+/* User table starts here */
+.userList,
+.taskList {
     margin: auto 20px;
 }
 
+#users-table {
+    width: 120%;
+}
+
 table {
-    width: 135%;
     border-collapse: collapse;
 }
 
+thead {
+    background-color: #f2f2f2;
+}
+
+thead td, tbody td {
+    padding: 8px;
+}
+
 table,
-thead,
-td {
+th, td {
     border: 1px solid black;
 }
+
 
 thead,
 td {
@@ -398,6 +411,15 @@ thead {
     width: 20px;
     appearance: textfield;
 }
+
+/* User table ends here */
+
+
+/* Daily Tasks table starts here */
+#tasks-table {
+    width: 100%;
+}
+/* Daily Tasks table ends here */
 
 
 /* Error screen */

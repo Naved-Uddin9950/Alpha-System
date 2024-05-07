@@ -3,12 +3,16 @@ import { confirm } from '../utils/confirm.js';
 
 export const getUsers = async () => {
     try {
-        const table = document.querySelector('#users-table');
+        const table = document.getElementById('users-tbody');
         const response = await fetch('http://localhost:3000/api/users');
         if (!response.ok) {
             throw new Error('Failed to fetch users');
         }
         const users = await response.json();
+
+        if(!users) {
+            console.log('Users count : 0');
+        }
 
         for (let i = 0; i < users.length; i++) {
             let name = users[i].fullname ?? 'Unknown';
@@ -22,6 +26,7 @@ export const getUsers = async () => {
 
             row.innerHTML += `
                 <tr>
+                    <td>${i+1}</td>
                     <td>${name}</td>
                     <td>${user}</td>
                     <td class="input-group">
