@@ -3,7 +3,7 @@ import { confirm } from '../utils/confirm.js';
 
 export const getUsers = async () => {
     try {
-        const table = document.querySelector('tbody');
+        const table = document.querySelector('#users-table');
         const response = await fetch('http://localhost:3000/api/users');
         if (!response.ok) {
             throw new Error('Failed to fetch users');

@@ -1,9 +1,9 @@
 // import { updateUser } from '../modules/updateUser.js';
 import { confirm } from '../utils/confirm.js';
 
-export const getUsers = async () => {
+export const getTasks = async () => {
     try {
-        const table = document.querySelector('tbody');
+        const table = document.querySelector('#tasks-table');
         const response = await fetch('http://localhost:3000/api/daily-tasks');
         if (!response.ok) {
             throw new Error('Failed to fetch daily tasks');
