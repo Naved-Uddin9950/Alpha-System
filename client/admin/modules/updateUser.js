@@ -1,6 +1,6 @@
 export const updateUser = async (fullname, username, level, status) => {
-    // const errorScreen = document.querySelector('.error');
-    // const errorMessage = document.querySelector('.errorMessage');
+    const errorScreen = document.querySelector('.error');
+    const errorMessage = document.querySelector('.errorMessage');
 
     // const URI = 'https://alpha-system.onrender.com/api/admin';
     const URI = `http://localhost:3000/api/users/${username}`;

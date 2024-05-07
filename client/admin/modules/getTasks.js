@@ -1,5 +1,5 @@
-// import { updateUser } from '../modules/updateUser.js';
 import { confirm } from '../utils/confirm.js';
+import { updateTask } from './updateTask.js';
 
 export const getTasks = async () => {
     try {
@@ -19,15 +19,20 @@ export const getTasks = async () => {
             let remove = `<i class="fa-solid fa-ban"></i>`;
 
             const row = document.createElement('tr');
-
             row.innerHTML += `
                 <tr>
                     <td>${task}</td>
-                    <td>${reward}</td>
-                    <td>${penalty}</td>
-                    <td>${timeLimit}</td>
                     <td>
-                        <button id='edit_id${i}'>${edit}</button> 
+                        <input type="text" class="rewardBox">
+                    </td>
+                    <td>
+                        <input type="text" class="penaltyBox">
+                    </td>
+                    <td>
+                        <input type="datetime-local" class="timeBox">
+                    </td>
+                    <td>
+                        <button class="editBtn">${edit}</button> 
                         <button> ${remove} </button>
                     </td>
                 </tr>
@@ -35,20 +40,52 @@ export const getTasks = async () => {
 
             table.appendChild(row);
 
+            // Reward update
+            const rewardBox = row.querySelector('.rewardBox');
+            rewardBox.value = reward;
+            rewardBox.addEventListener('change', () => {
+                reward = rewardBox.value.split(',').map(item => item.trim());
+                if (reward.length === 0 || reward.every(item => item === '')) {
+                    reward = ['NONE'];
+                }
+            });
+            // Reward update ends here
+
+            // Penlaty update
+            const penaltyBox = row.querySelector('.penaltyBox');
+            penaltyBox.value = penalty;
+            penaltyBox.addEventListener('change', () => {
+                penalty = penaltyBox.value.split(',').map(item => item.trim());;
+                if (penalty.length === 0 || penalty.every(item => item === '')) {
+                    penalty = ['NONE'];
+                }
+            });
+            // Penalty update ends here
+
+            // timeLimit update
+            const dateTimeObject = new Date(timeLimit);
+            const timeBox = row.querySelector('.timeBox');
+            const timeLimitValue = dateTimeObject.toISOString().slice(0, 16);
+            timeBox.value = timeLimitValue;
+            timeBox.addEventListener('change', () => {
+                timeLimit = timeBox.value;
+            });
+            // timeLimit update ends here
+
             // Submit / Edit
-            // let editBtn = document.getElementById(`edit_id${i}`);
-            // editBtn.addEventListener('click', () => {
-            //     let message = `Do you want to save changes for user ${user} ?`
-            //     const yes = document.querySelector('.yesOption');
+            let editBtn = row.querySelector('.editBtn');
+            editBtn.addEventListener('click', () => {
+                let message = `Do you want to save changes for task : ${task} ?`
+                const yes = document.querySelector('.yesOption');
 
-            //     confirm(message);
-            //     yes.addEventListener('click', () => {
-            //         updateUser(name, user, level, status);
-            //         const box = document.querySelector('.confirmBox');
-            //         box.style.display = 'none';
-            //     });
+                confirm(message);
+                yes.addEventListener('click', () => {
+                    updateTask(task, reward, penalty, timeLimit);
+                    const box = document.querySelector('.confirmBox');
+                    box.style.display = 'none';
+                });
 
-            // });
+            });
             // Submit / Edit ends here
         }
     } catch (error) {

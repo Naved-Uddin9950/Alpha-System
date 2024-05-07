@@ -61,12 +61,11 @@ const dailyTasksController = {
             const { task, reward, penalty, timeLimit } = req.body;
 
             // Find the user by username and update the data
-            const updatedTask = await User.findOneAndUpdate({ task }, {
-                task,
-                reward,
-                penalty,
-                timeLimit
-            }, { new: true });
+            const updatedTask = await DailyTasks.findOneAndUpdate(
+                { task: task },
+                { reward, penalty, timeLimit }, 
+                { new: true } 
+            );
 
             if (!updatedTask) {
                 return res.status(404).json({ error: 'Daily Task not found' });
