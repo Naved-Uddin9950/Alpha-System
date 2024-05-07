@@ -1,30 +1,45 @@
-import User from '../models/User.model.js';
-import DailyTask from '../models/DailyTasks.model.js';
+import { DailyTasks } from '../models/DailyTasks.model.js';
 
-const assignDailyTasks = async (req, res) => {
-    try {
-        // Fetch active users
-        const activeUsers = await User.find({ status: 'Active' });
-
-        // Fetch daily tasks (you can generate them dynamically or fetch from the database)
-        const dailyTasks = await DailyTask.find();
-
-        // Assign daily tasks to active users
-        for (const user of activeUsers) {
-            // Assign tasks to users as per your logic
-            // For example, you can randomly assign tasks or assign them based on user's level, etc.
-            const randomIndex = Math.floor(Math.random() * dailyTasks.length);
-            const task = dailyTasks[randomIndex];
+const dailyTasksController = {
+    async createDailyTasks(req, res) {
+        try {
+            const task = req.body.task;
+            const penalty = req.body.penalty;
+            const reward = req.body.reward;
+            const status = req.body.status;
             
-            user.dailyTasks.push(task); // Assuming dailyTasks is an array field in the User model
-            await user.save();
-        }
+            const today = new Date(); // Get today's date
+            today.setHours(0, 0, 0, 0); // Set time to midnight
 
-        res.status(200).json({ message: 'Daily tasks assigned successfully' });
-    } catch (error) {
-        console.error('Error assigning daily tasks:', error);
-        res.status(500).json({ error: 'An error occurred while assigning daily tasks' });
+            // Check if daily tasks already exist for today
+            const existingTasks = await DailyTasks.findOne({ task: task });
+            if (existingTasks) {
+                return res.status(400).json({ error: 'Daily tasks for today already exist' });
+            }
+
+
+            // Create new daily tasks
+            const newDailyTasks = new DailyTasks({
+                task: task,
+                penalty: penalty,
+                reward: reward,
+                status: status,
+                timeLimit: today
+                // Add other fields as needed
+            });
+
+            // Save new daily tasks to the database
+            await newDailyTasks.save();
+
+            // TODO: Assign new daily tasks to all active users
+            // Replace this with your logic to assign tasks to users
+
+            res.status(201).json({ message: 'Daily tasks created and assigned successfully' });
+        } catch (error) {
+            console.error('Error creating daily tasks:', error);
+            res.status(500).json({ error: 'An error occurred while creating daily tasks' });
+        }
     }
 };
 
-export { assignDailyTasks };
+export default dailyTasksController;
